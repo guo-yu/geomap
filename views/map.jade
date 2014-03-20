@@ -1,0 +1,15 @@
+doctype html
+html(ng-app="map")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport",content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet",href="/css/leaflet.css")
+    link(rel="stylesheet",href="/css/map.css")
+    script(src="/js/leaflet.js")
+    script(src="/js/angular.min.js")
+    script(src="/js/angular-resource.min.js")
+    script(src="/js/angular-store.js")
+    script(src="/js/angular-leaflet-directive.min.js")
+  body(ng-controller="mainCtrler")
+    leaflet#map(center="mapcenter",markers="markers").map
+    script(src="/js/map.js") 
