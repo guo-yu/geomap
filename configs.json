@@ -1,0 +1,10 @@
+{
+  "port": 8888,
+  "token": "secret_here",
+  "name": "Geo Map",
+  "views": "./views",
+  "public": "./public",
+  "database": {
+    "name": "geomap"
+  }
+}
