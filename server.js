@@ -43,9 +43,11 @@ function server() {
     app.get('/cache', function(req, res, next) {
       ctrlers.cache.latest(function(err, cache) {
         if (err) return next(err);
-        var result = cache;
-        result.stat = 'ok';
-        return res.json(result);
+        var result = cache ? cache : {};
+        return res.json({
+          stat: 'ok',
+          cache: cache
+        });
       });
     });
 
@@ -61,9 +63,15 @@ function server() {
       if (!req.body.cache) return next(new Error('contents required'));
       if (!token || token !== configs.token) return next(new Error('token required'));
       var cache = req.body.cache;
-      ctrlers.cache.create(cache, function(err, baby) {
+      if (cache.length === 0) return next(new Error('contents required'));
+      var baby = {};
+      try {
+        baby.content = JSON.parse(cache);
+      } catch (err) {
+        return next(new Error('cache fomat is invalid!'));
+      }
+      ctrlers.cache.create(baby, function(err, baby) {
         if (err) return next(err);
-        console.log(baby)
         res.json({
           stat: 'ok',
           baby: baby._id
